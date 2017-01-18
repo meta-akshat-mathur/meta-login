@@ -1,0 +1,35 @@
+<div class="page-header">
+    <h1>Log In</h1>
+</div>
+
+<form ng-submit="login()">
+    <div class="form-group">
+        <input class="form-control" placeholder="Email" ng-model="user.email">
+    </div>
+    <div class="form-group">
+        <input type="password" class="form-control" placeholder="Password" ng-model="user.password">
+    </div>
+    <input type="submit" class="btn btn-default" value="Log In">
+</form>
+
+<form ng-submit="forgetPassword()">
+    <div class="form-group">
+        <input class="form-control" placeholder="Email" ng-model="user.email">
+    </div>
+    <input type="submit" class="btn btn-default" value="Forget Password">
+</form>
+
+
+<form ng-submit="updatePassword(changePasswordForm)" role="form" ng-init="changePasswordForm = {}">
+  <div class="form-group">
+    <label>password</label>
+    <input type="password" name="password" ng-model="changePasswordForm.password" required="required" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label>password confirmation</label>
+    <input type="password" name="password_confirmation" ng-model="changePasswordForm.password_confirmation" required="required" class="form-control">
+  </div>
+
+  <button type="submit">Change your password</button>
+</form>

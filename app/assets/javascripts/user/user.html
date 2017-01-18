@@ -1,0 +1,34 @@
+
+<div class="page-header">
+    <h3>User Details</h3>
+</div>
+<div>
+  <div class="row">
+    <div class="col-md-6">
+      <b>First Name:</b> {{user.first_name}}
+    </div>
+    <div class="col-md-6">
+      <b>Last Name:</b> {{user.last_name}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <b>Email:</b> {{user.email}}
+    </div>
+    <div class="col-md-6">
+      <b>Mobile:</b> {{user.mobile}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <b>Connected Accounts </b>
+    </div>
+    <div class="col-md-3">
+      <ul>
+        <li ng-repeat="account in user.connected_accounts">
+          {{account}}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MetaLogin</title>
+        <%= stylesheet_link_tag    'application', media: 'all' %>
+        <%= javascript_include_tag 'application' %>
+        <%= csrf_meta_tags %>
+    </head>
+    <body ng-app="metaLogin">
+        <div class="col-md-6 col-md-offset-3">
+            <div ng-include="'nav/_nav.html'"></div>
+            <ui-view></ui-view>
+        </div>
+    </body>
+</html>

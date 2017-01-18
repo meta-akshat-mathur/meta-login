@@ -1,0 +1,187 @@
+<style>
+    .form-control {
+        border-radius: 0px;
+    }
+
+    .input-group-addon:first-child {
+        border-radius: 0px;
+    }
+
+    .form-group {
+        margin-bottom: 8px;
+    }
+    /*.box-tabs{
+  border-bottom: 0px;
+}
+
+.box-tabs > li{
+  margin-right: 5px;
+}
+
+.box-tabs > li > a{
+  border-radius: 0px;
+  border: 1px solid #ddd;
+  background: #FAFAFA;
+  color: #ccc;
+}
+
+.box-tabs > li.active > a,
+.box-tabs > li.active > a:hover,
+.box-tabs > li.active > a:focus {
+  border-bottom: 1px solid #ddd;
+}
+
+
+.box-tabs > li.active > a .college-colored,
+.box-tabs > li.active > a:hover .college-colored,
+.box-tabs > li.active > a:focus .college-colored{
+  color: #1976D2;
+}*/
+
+    .valdr-message {
+        display: none;
+    }
+
+    .valdr-message.ng-invalid.ng-touched.ng-dirty,
+    .form-submitted .valdr-message.ng-invalid {
+        display: inline;
+        color: red;
+    }
+
+    .error-message {
+        color: red;
+    }
+
+    .inputField {
+        margin-bottom: 0px;
+    }
+
+    .or-container {
+        text-align: center;
+        margin: 0;
+        margin-bottom: 10px;
+        clear: both;
+        color: grey;
+        font-variant: small-caps;
+    }
+
+    .or-hr {
+        margin-bottom: 0;
+        position: relative;
+        top: 19px;
+        height: 0;
+        border: 0;
+        border-top: 1px solid #e6e6e6;
+    }
+
+    #or {
+        display: inline-block;
+        position: relative;
+        padding: 10px;
+        background-color: #FFF;
+    }
+
+    .major-provider {
+        cursor: pointer;
+        border-radius: 3px;
+        height: 38px;
+        line-height: 36px;
+        float: left;
+        width: 101%;
+        /*margin: 8px 2px;*/
+        box-sizing: border-box;
+        border: 1px solid transparent;
+        text-align: center;
+        background: #e0492f;
+        margin-bottom: 5px;
+    }
+
+    .major-provider .icon-container {
+        border-right: 1px solid rgba(0, 0, 0, 0.1);
+        box-sizing: border-box;
+        width: 38px;
+        height: 100%;
+        line-height: 1;
+        padding: 10px 0;
+        float: left;
+    }
+
+    #openid-buttons {
+        padding-left: 100px;
+        text-align: center;
+    }
+
+    .icon {
+        background-position: 0 0;
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+    }
+
+    .text {
+        color: #FFF;
+    }
+
+    .major-provider.facebook-login {
+        background: #395697;
+        /*width: 200px;*/
+    }
+
+    .major-provider.google-login {
+        background: #e0492f;
+        /*width: 180px;*/
+    }
+
+    .major-provider.linkedin-login {
+        background: #0069a4;
+        /*width: 190px;*/
+    }
+</style>
+<div class="page-header">
+    <h1>Register</h1>
+</div>
+<div class="row">
+    <div class="col-md-4 col-sm-12 col-xs-12 ">
+        <span class="major-provider google-login" ng-click="socialLogin('google')">
+                        <div class="icon-container text"><i class="fa fa-google-plus"></i></div>
+                        <div class="text"><span>Sign up with Google</span></div>
+    </span>
+</div>
+<div class="col-md-4 col-sm-12 col-xs-12 ">
+    <span class="major-provider linkedin-login" ng-click="socialLogin('linkedin')">
+                      <div class="icon-container text"><i class="fa fa-linkedin"></i></div>
+                      <div class="text"><span>Sign up with Linkedin</span></div>
+</span>
+</div>
+<div class="col-md-4 col-sm-12 col-xs-12 ">
+    <span class="major-provider facebook-login" ng-click="socialLogin('facebook')">
+                      <div class="icon-container text"><i class="fa fa-facebook"></i></div>
+                      <div class="text"><span>Sign up with Facebook</span></div>
+</span>
+</div>
+
+
+</div>
+<div class="or-container">
+    <hr class="or-hr">
+    <div id="or">or</div>
+</div>
+
+<form ng-submit="register()">
+    <div class="form-group">
+        <input type="email" class="form-control" placeholder="Email" ng-model="user.email">
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="First Name" ng-model="user.first_name">
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Last Name" ng-model="user.last_name">
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Mobile" ng-model="user.mobile">
+    </div>
+    <div class="form-group">
+        <input type="password" class="form-control" placeholder="Password" ng-model="user.password">
+    </div>
+    <input type="submit" class="btn btn-default" value="Register">
+</form>
