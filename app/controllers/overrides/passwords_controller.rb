@@ -41,6 +41,9 @@ module Overrides
       if ActiveRecord::Base.connection.adapter_name.downcase.starts_with? 'mysql'
         q = "BINARY uid = ? AND provider='email'"
       end
+
+      #override
+      #onlu matching email field
       q = "email = ?"
       @resource = resource_class.where(q, @email).first
 
@@ -95,8 +98,6 @@ module Overrides
 
         @resource.save!
         yield @resource if block_given?
-        byebug
-
 
         redirect_to(@resource.build_auth_url(params[:redirect_url], {
           token:          token,

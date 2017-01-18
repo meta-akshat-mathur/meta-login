@@ -35,7 +35,7 @@ angular.module('metaLogin')
                 //
                 $scope.socialLogin = function(provider) {
                   $auth.authenticate(provider).then(function(resp) {
-                    console.log(resp);
+
                       $state.go('user');
                   })
                   .catch(function(resp) {
@@ -49,6 +49,7 @@ angular.module('metaLogin')
                   $auth.requestPasswordReset($scope.user)
                     .then(function(resp) {
                       console.log(resp);
+                      alert(resp.data.message);
                       // handle success response
                     })
                     .catch(function(resp) {

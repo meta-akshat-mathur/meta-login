@@ -42,11 +42,17 @@ angular.module('metaLogin', ['ui.router', 'templates', 'ng-token-auth','ngRoute'
                     url: '/user',
                     templateUrl: 'user/user.html',
                     controller: 'UserCtrl'
+                })
+                .state('changePassword', {
+                    url: '/password-reset',
+                    templateUrl: 'auth/change-password.html',
+                    controller: 'PasswordCtrl'
                 });
-
             $urlRouterProvider.otherwise('home');
             $authProvider.configure({
                 apiUrl: '.',
+                confirmationSuccessUrl: location.origin + '/#/user',
+                passwordResetSuccessUrl: location.origin + '/#/password-reset',
                 omniauthWindowType: 'newWindow',
                 authProviderPaths: {
                   facebook: '/auth/facebook',
