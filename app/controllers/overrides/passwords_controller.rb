@@ -34,8 +34,8 @@ module Overrides
         @email = resource_params[:email]
       end
 
-      q = "uid = ? AND provider='email'"
-      # byebug
+      # q = "uid = ? AND provider='email'"
+
 
       # fix for mysql default case insensitivity
       if ActiveRecord::Base.connection.adapter_name.downcase.starts_with? 'mysql'
@@ -45,7 +45,7 @@ module Overrides
       #override
       #onlu matching email field
       q = "email = ?"
-      @resource = resource_class.where(q, @email).first
+      @resource = resource_class.joins(:user_logins).select('*',"user_logins.id as user_login_id","users.id as id").where("user_logins.provider = ? AND user_logins.uid = ?",'email',@email).where(q, @email).first
 
       @errors = nil
       @error_status = 400
@@ -54,7 +54,8 @@ module Overrides
         yield @resource if block_given?
         @resource.send_reset_password_instructions({
           email: @email,
-          provider: 'email',
+          provider: @resource.provider,
+          uid: @resource.uid,
           redirect_url: @redirect_url,
           client_config: params[:config_name]
         })
@@ -79,6 +80,7 @@ module Overrides
       @resource = resource_class.reset_password_by_token({
         reset_password_token: resource_params[:reset_password_token]
       })
+      @resource = User.joins(:user_logins).select('*',"user_logins.id as user_login_id","users.id as id").find_by('user_logins.provider = ? AND user_logins.uid = ? AND user_id = ?', params[:provider],params[:uid],@resource.id)
       if @resource and @resource.id
         client_id  = SecureRandom.urlsafe_base64(nil, false)
         token      = SecureRandom.urlsafe_base64(nil, false)
@@ -119,7 +121,7 @@ module Overrides
       # make sure account doesn't use oauth2 provider
       # Override
       # check user from where provider is email
-      unless @resource.user_logins.first.provider == 'email'
+      unless @resource.provider == 'email'
         return render_update_error_password_not_required
       end
 

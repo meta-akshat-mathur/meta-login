@@ -7,9 +7,16 @@ class User < ActiveRecord::Base
 
     devise :database_authenticatable, :registerable,
            :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :confirmable, :omniauthable
-    # validates_presence_of :email
 
     has_many :user_logins
+
+    # validates_presence_of :email
+    # scope :provider, -> { joins(:user_login).where(user_login.user_id = '21').pluck(:provider) }
+
+    # default_scope { lambda { |provider='email'| joins(:user_logins).select('*',"user_logins.id as user_login_id","users.id as id").where('user_logins.provider = ?', provider) } }
+    # default_scope { joins(:user_logins).select('*',"user_logins.id as user_login_id","users.id as id") }
+    # scope :uid, -> { where(first_name: 'Akshat Mathur')}
+
 
     # Description of method
     # => Get the details from omniauth(auth) find or initialize user and userlogin
@@ -36,7 +43,11 @@ class User < ActiveRecord::Base
             user_logins.user_id = user.id
             user_logins.save
        end
-        user_logins.user
+       User.joins(:user_logins).select('*',"user_logins.id as user_login_id","users.id as id").find_by('user_logins.provider = ? AND user_logins.uid = ?', auth['provider'],auth['uid'])
+    end
+
+    def send_devise_notification(notification, *args)
+      devise_mailer.send(notification, self, *args).deliver_later
     end
 
     def self.current=(user)
@@ -46,4 +57,8 @@ class User < ActiveRecord::Base
     def self.current
         Thread.current[:current_user]
     end
+
+    # def self.provider
+    #
+    # end
 end

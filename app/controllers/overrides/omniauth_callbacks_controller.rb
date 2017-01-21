@@ -170,7 +170,8 @@ module Overrides
       @auth_params = {
         auth_token:     @token,
         client_id: @client_id,
-        uid:       @resource.user_logins.find_by_provider(auth_hash['provider']).uid,
+        uid:       @resource.uid,
+        provider:  @resource.provider,
         expiry:    @expiry,
         config:    @config
       }

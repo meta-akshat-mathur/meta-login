@@ -34,7 +34,8 @@ angular.module('ng-token-auth', ['ipCookie']).provider('$auth', function() {
         "token-type": "Bearer",
         client: "{{ clientId }}",
         expiry: "{{ expiry }}",
-        uid: "{{ uid }}"
+        uid: "{{ uid }}",
+        provider: "{{provider}}"
       },
       cookieOps: {
         path: "/",
@@ -439,6 +440,7 @@ angular.module('ng-token-auth', ['ipCookie']).provider('$auth', function() {
                   if (token !== void 0) {
                     clientId = params.client_id;
                     uid = params.uid;
+                    provider = params.provider;
                     expiry = params.expiry;
                     configName = params.config;
                     this.setConfigName(configName);
@@ -449,10 +451,11 @@ angular.module('ng-token-auth', ['ipCookie']).provider('$auth', function() {
                       token: token,
                       clientId: clientId,
                       uid: uid,
+                      provider: provider,
                       expiry: expiry
                     }));
                     url = $location.path() || '/';
-                    ['auth_token', 'token', 'client_id', 'uid', 'expiry', 'config', 'reset_password', 'account_confirmation_success', 'oauth_registration'].forEach(function(prop) {
+                    ['auth_token', 'token', 'client_id', 'uid', 'provider', 'expiry', 'config', 'reset_password', 'account_confirmation_success', 'oauth_registration'].forEach(function(prop) {
                       return delete params[prop];
                     });
                     if (Object.keys(params).length > 0) {
@@ -583,6 +586,7 @@ angular.module('ng-token-auth', ['ipCookie']).provider('$auth', function() {
                   token: this.user.auth_token,
                   clientId: this.user.client_id,
                   uid: this.user.uid,
+                  provider: this.user.provider,
                   expiry: this.user.expiry
                 }));
               }

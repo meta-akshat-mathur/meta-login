@@ -8,6 +8,7 @@ angular.module('metaLogin')
                   $auth.updatePassword($scope.updatePasswordForm)
                     .then(function(resp) {
                       // handle success response
+                      alert(resp.data.message)
                       $state.go('home')
                     })
                     .catch(function(resp) {

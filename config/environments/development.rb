@@ -43,7 +43,7 @@ config.middleware.insert_before 0, "Rack::Cors", :debug => true, :logger => (-> 
     origins '*'
     resource '*',
       :headers => :any,
-      :expose  => ['access-token', 'expiry', 'token-type', 'uid', 'client'],
+      :expose  => ['access-token', 'expiry', 'token-type', 'uid', 'client', 'provider'],
       :methods => [:get, :post, :delete, :put, :options, :head],
       :max_age => 0
   end

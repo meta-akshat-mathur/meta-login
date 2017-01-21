@@ -5,6 +5,15 @@ DeviseTokenAuth.setup do |config|
   # each request.
   config.change_headers_on_each_request = false
 
+  config.check_current_password_before_update = :password
+
+  config.headers_names = {:'access-token' => 'access-token',
+                         :'client' => 'client',
+                        :'expiry' => 'expiry',
+                         :'uid' => 'uid',
+                         :'provider' => 'provider',
+                         :'token-type' => 'token-type' }
+
   #By default, old tokens are not invalidated when password is changed.
   #By enabling this option, it will remove old tokens and logout from other devises.
   config.remove_tokens_after_password_reset = true

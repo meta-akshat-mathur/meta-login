@@ -6,10 +6,10 @@ module Overrides
     skip_after_action :update_auth_header, :only => [:create, :destroy]
 
     def create
-      @resource            = resource_class.new(sign_up_params)
-
+      @resource    = resource_class.joins(:user_logins).select('*',"user_logins.id as user_login_id","users.id as id").new(sign_up_params)
       # set provider & uid in UserLogin for email and mobile
-      @user_logins = UserLogin.new(:uid => sign_up_params[:email],:provider => "email")
+      @resource.user_logins.new(:uid => sign_up_params[:email],:provider => "email", :user_id => @resource.id)
+
       # honor devise configuration for case_insensitive_keys
       if resource_class.case_insensitive_keys.include?(:email)
         @resource.email = sign_up_params[:email].try :downcase
@@ -50,9 +50,6 @@ module Overrides
               redirect_url: @redirect_url
             })
 
-            # set user in user login
-            @user_logins.user_id = @resource.id
-            @user_logins.save
           else
             # email auth has been bypassed, authenticate user
             @client_id = SecureRandom.urlsafe_base64(nil, false)
@@ -64,7 +61,7 @@ module Overrides
             }
 
             @resource.save!
-
+            
             update_auth_header
           end
           render_create_success
@@ -102,9 +99,9 @@ module Overrides
       end
     end
 
-    def sign_up_params
-      params.permit(devise_parameter_sanitizer.for(:sign_up))
-    end
+    # def sign_up_params
+    #   params.permit(devise_parameter_sanitizer.for(:sign_up))
+    # end
 
     def account_update_params
       params.permit(devise_parameter_sanitizer.for(:account_update))

@@ -39,7 +39,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'angular-rails-templates'
 gem 'angular_rails_csrf'
-gem 'devise', '~>  3.5.2'
+gem 'devise', '~>  4.2.0'
 gem 'devise_token_auth', '~> 0.1.39'
 gem 'omniauth-facebook'
 gem "omniauth-google-oauth2"
@@ -48,7 +48,8 @@ gem 'omniauth-oauth2', '~> 1.3.1'
 gem 'figaro'
 gem 'delayed_job'
 gem 'delayed_job_active_record'
-gem 'devise-async'
+# gem 'devise-async'
+gem 'devise_invitable', '~> 1.7.0'
 gem 'rack-cors', :require => 'rack/cors'
 
 # gem 'autoprefixer-rails', '~> 4.0.1'

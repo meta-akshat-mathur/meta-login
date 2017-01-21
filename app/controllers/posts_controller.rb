@@ -1,5 +1,4 @@
 class PostsController < ApplicationController
-  # before_action :set_user_by_token
   before_filter :authenticate_user!, only: [:create, :upvote]
   # respond_to :json
 

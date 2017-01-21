@@ -79,6 +79,7 @@ module Concerns::User
 
     # override devise method to include additional info as opts hash
     def send_reset_password_instructions(opts=nil)
+
       token = set_reset_password_token
 
       opts ||= {}
@@ -205,7 +206,8 @@ module Concerns::User
       DeviseTokenAuth.headers_names[:"token-type"]   => "Bearer",
       DeviseTokenAuth.headers_names[:"client"]       => client_id,
       DeviseTokenAuth.headers_names[:"expiry"]       => expiry.to_s,
-      DeviseTokenAuth.headers_names[:"uid"]          => self.user_logins.first.uid
+      DeviseTokenAuth.headers_names[:"provider"]     => self.provider,
+      DeviseTokenAuth.headers_names[:"uid"]          => self.uid
     }
   end
 
@@ -213,7 +215,8 @@ module Concerns::User
   def build_auth_url(base_url, args)
     # Override
     # changes in UID
-    args[:uid]    =  self.user_logins.first.uid
+    args[:uid]    =  self.uid
+    args[:provider]    =  self.provider
     args[:expiry] = self.tokens[args[:client_id]]['expiry']
 
     DeviseTokenAuth::Url.generate(base_url, args)
