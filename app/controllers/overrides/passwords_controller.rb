@@ -129,6 +129,7 @@ module Overrides
       unless password_resource_params[:password] and password_resource_params[:password_confirmation]
         return render_update_error_missing_password
       end
+byebug
 
       if @resource.send(resource_update_method, password_resource_params)
         @resource.allow_password_change = false
